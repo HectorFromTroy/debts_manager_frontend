@@ -1,0 +1,5 @@
+export const SIGN_UP = "SIGN_UP"
+export const SET_CREDENTIALS = "SET_CREDENTIALS"
+export const SET_IS_AUTHENTICATED = "SET_IS_AUTHENTICATED"
+export const SET_USER_ID = "SET_USER_ID"
+export const SET_ERROR = "SET_ERROR"
