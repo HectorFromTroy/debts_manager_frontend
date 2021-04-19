@@ -19,6 +19,9 @@ export default {
     [types.DELETE_DEBTOR](state, debtorId) {
         state.debtors = state.debtors.filter(debtor => debtor.id !== debtorId)
     },
+    [types.ADD_DEBTS](state, debts) {
+        state.debts.push(...debts)
+    },
     [types.SET_DEBTS](state, debts) {
         state.debts = debts
     },

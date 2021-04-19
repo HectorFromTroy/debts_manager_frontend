@@ -96,8 +96,13 @@ export default {
       error
     } = await ajax.getDebts(payload)
     if (status) {
-      commit(types.SET_DEBTS, data.debts)
+      if (payload.isAdd) {
+        commit(types.ADD_DEBTS, data.debts)
+      } else {
+        commit(types.SET_DEBTS, data.debts)
+      }
       commit(types.SET_SUM, data.sum)
+      return data.debts.length === 0
     } else {
       commit(types.SET_ERROR, error)
     }
@@ -117,6 +122,19 @@ export default {
       error
     } = await ajax.repayDebts(payload)
     if (!status) {
+      commit(types.SET_ERROR, error)
+    }
+  },
+  async addDebt({ commit }, payload) {
+    const {
+      status,
+      error
+    } = await ajax.addDebt(payload)
+    if (status) {
+      await router.push({
+        name: "Main"
+      })
+    } else {
       commit(types.SET_ERROR, error)
     }
   }

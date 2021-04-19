@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div
+      v-if="debtors.length === 0"
+      class="d-flex justify-center pt-10"
+    >
+      У вас нет ни одного должника
+    </div>
     <v-col
       cols="12" lg="4" xl="4"
     >

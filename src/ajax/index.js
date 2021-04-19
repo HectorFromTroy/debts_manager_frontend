@@ -69,9 +69,23 @@ export const repayDebts = ({
     repayDate,
     repayDescription
 }) => {
-    return requestInstance.post("repay_debt", {
+    return requestInstance.post("/repay_debt", {
         debtIds,
         repayDate,
         repayDescription
+    })
+}
+
+export const addDebt = ({
+  debtorIds,
+  sum,
+  description,
+  date
+}) => {
+    return requestInstance.post("/add_debt", {
+        debtorIds,
+        sum,
+        description,
+        date,
     })
 }

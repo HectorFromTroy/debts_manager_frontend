@@ -26,13 +26,9 @@ requestInstance.interceptors.request.use(
 
 requestInstance.interceptors.response.use((
   response) => {
-    console.log("intercepted response")
-    console.log(response)
     return response.data
   },
   error => {
-    console.log("intercepted response error")
-    console.log(error)
     return {
       status: false,
       data: null,

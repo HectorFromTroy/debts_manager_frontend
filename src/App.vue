@@ -71,8 +71,9 @@ export default {
     items: [
       { title: 'Зарегистрироваться', icon: 'mdi-registered-trademark', to: routes.SIGNUP },
       { title: 'Войти', icon: 'mdi-login', to: routes.LOGIN },
-      { title: 'Мои должники', icon: 'mdi-cash-100', to: routes.MAIN },
+      { title: 'Мои должники', icon: 'mdi-account-cash', to: routes.MAIN },
       { title: 'Добавить должника', icon: 'mdi-run', to: routes.ADD_DEBTOR },
+      { title: 'Добавить долг', icon: 'mdi-cash-100', to: routes.ADD_DEBT },
     ],
   }),
   computed: {

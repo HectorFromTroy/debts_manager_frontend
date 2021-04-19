@@ -99,8 +99,10 @@ export default {
         this.$emit("agreed")
 
       if (this.dialogType === "CLOSE") {
+        const saveDate = new Date(this.date)
+        saveDate.setMinutes(Math.floor(Math.random() * 60))
         this.$emit("agreed", {
-          repayDate: this.date,
+          repayDate: saveDate,
           repayDescription: this.description
         })
         this.date = new Date().toISOString().substr(0, 10)

@@ -5,6 +5,7 @@ import Login from "../components/Login"
 import SignUp from "../components/SignUp"
 import AddDebtor from "../components/AddDebtor";
 import Debts from "../components/Debts";
+import AddDebt from "../components/AddDebt";
 
 import * as routePaths from "../constants/routes"
 import store from "../store"
@@ -33,7 +34,11 @@ const routes = [
     name: "Debts",
     component: Debts,
     props: true,
-  },{ path: '*', redirect: '/' },
+  }, {
+    path: routePaths.ADD_DEBT,
+    name: "AddDebt",
+    component: AddDebt,
+  }, { path: '*', redirect: '/' },
 ]
 
 const router = new VueRouter({

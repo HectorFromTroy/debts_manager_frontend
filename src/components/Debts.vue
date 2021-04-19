@@ -2,8 +2,9 @@
   <div>
     <v-list
       two-line
-      style="height: calc(100vh - 160px)"
+      style="height: calc(100vh - 210px)"
       class="overflow-y-auto"
+      ref="debtList"
     >
       <div  v-for="(debt, index) in debts" :key="debt.id">
         <v-list-item>
@@ -17,7 +18,7 @@
 
             <v-list-item-content class="pa-0">
               <v-list-item-content class="pa-2">
-                <v-list-item-title v-text="debt.date"></v-list-item-title>
+                <v-list-item-title v-text="getSlicedDate(debt.date)"></v-list-item-title>
 
                 <v-list-item-subtitle
                   class="text--primary"
@@ -26,7 +27,7 @@
               </v-list-item-content>
 
               <v-list-item-content class="pa-2">
-                <v-list-item-title v-text="debt.repayDate"></v-list-item-title>
+                <v-list-item-title v-text="getSlicedDate(debt.repayDate)"></v-list-item-title>
 
                 <v-list-item-subtitle
                   class="text--primary"
@@ -58,6 +59,23 @@
         <v-divider v-if="debts.length - 1 > index" :key="index"></v-divider>
       </div>
     </v-list>
+
+    <div
+      style="height: 50px;"
+      class="d-flex justify-end align-center"
+    >
+      <div>
+        Общий долг
+      </div>
+      <v-chip
+        class="ma-2 font-weight-black title"
+        color="green"
+        text-color="white"
+      >
+        {{ sum }}
+      </v-chip>
+    </div>
+
     <div
       style="height: 100px; border-top: 1px solid grey;"
       class="d-flex justify-space-around align-center"
@@ -114,9 +132,15 @@ export default {
     selected: [],
     dialogType: "",
     dialogText: "",
+    bottom: false,
+    isEnded: false,
   }),
-  mounted() {
-    this.getDebts({
+  async mounted() {
+    this.$refs.debtList.$el.addEventListener('scroll', () => {
+      this.bottom = this.bottomVisible()
+    })
+    this.isEnded = await this.getDebts({
+      isAdd: false,
       debtorId: this.id,
       active: this.active,
       page: this.page++
@@ -134,6 +158,12 @@ export default {
       "deleteDebts",
       "repayDebts",
     ]),
+    getSlicedDate(date) {
+      if (!date) {
+        return date
+      }
+      return date.substr(0, 10)
+    },
     isSelected(id) {
       return this.selected.includes(id)
     },
@@ -173,12 +203,33 @@ export default {
       }
       this.selected = []
       this.page = 0
-      this.getDebts({
+      this.isEnded = await this.getDebts({
+        isAdd: false,
         debtorId: this.id,
         active: this.active,
         page: 0,
       })
     },
+    bottomVisible() {
+      const element = this.$refs.debtList.$el
+      const scrollY = element.scrollTop
+      const visible = element.clientHeight
+      const pageHeight = element.scrollHeight
+      const bottomOfPage = visible + scrollY >= pageHeight
+      return bottomOfPage || pageHeight < visible
+    },
+  },
+  watch: {
+    async bottom(bottom) {
+      if (bottom && !this.isEnded) {
+        this.isEnded = await this.getDebts({
+          isAdd: true,
+          debtorId: this.id,
+          active: this.active,
+          page: this.page++,
+        })
+      }
+    }
   },
 }
 </script>
