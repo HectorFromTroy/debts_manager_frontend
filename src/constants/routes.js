@@ -1,3 +1,5 @@
 export const MAIN = "/"
 export const SIGNUP = "/signup"
 export const LOGIN = "/login"
+export const ADD_DEBTOR = "/add_debtor"
+export const DEBTS = "/debtor/:id"

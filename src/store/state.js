@@ -10,4 +10,7 @@ export default {
     username: "",
     credentials: CREDS,
     error: "",
+    debtors: [],
+    debts: [],
+    sum: null,
 }

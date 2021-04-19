@@ -24,7 +24,9 @@
         />
       </v-col>
 
-      <v-col class="d-flex" cols="12" sm="6" xsm="12"></v-col>
+      <v-col class="d-flex red--text font-weight-bold" cols="12" sm="6" xsm="12">
+        {{ error }}
+      </v-col>
       <v-spacer></v-spacer>
 
       <v-col class="d-flex" cols="12" lg="4" xl="4">
@@ -39,7 +41,10 @@
 </template>
 
 <script>
-import { mapActions } from "vuex"
+import {
+  mapState,
+  mapActions
+} from "vuex"
 import moment from "moment"
 
 export default {
@@ -52,6 +57,11 @@ export default {
         value => !!value.trim() || 'Заполните поле',
     ],
   }),
+  computed: {
+    ...mapState([
+      'error',
+    ]),
+  },
   created() {
     console.log(moment().format("YYYY-MM-DD"))
   },

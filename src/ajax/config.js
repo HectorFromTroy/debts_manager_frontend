@@ -36,7 +36,7 @@ requestInstance.interceptors.response.use((
     return {
       status: false,
       data: null,
-      error: error.response,
+      error: error,
     }
   }
 )

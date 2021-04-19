@@ -43,7 +43,9 @@
         />
       </v-col>
 
-      <v-col class="d-flex" cols="12" sm="6" xsm="12"></v-col>
+      <v-col class="d-flex red--text font-weight-bold" cols="12" sm="6" xsm="12">
+        {{ error }}
+      </v-col>
       <v-spacer></v-spacer>
 
       <v-col class="d-flex" cols="12" lg="4" xl="4">
@@ -61,6 +63,7 @@
 
 <script>
 import {
+  mapState,
   mapActions
 } from 'vuex'
 
@@ -79,6 +82,9 @@ export default {
     },
   }),
   computed: {
+    ...mapState([
+      "error",
+    ]),
     passwordMatch() {
       return () => this.password === this.verifyPassword || "Пароли не совпадают";
     }

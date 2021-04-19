@@ -18,20 +18,60 @@ export const signUp = async ({ username, password, name }) => {
     }
 }
 
-export const logIn = async (credentials) => {
-    const response = await requestInstance.get("/login", {
+export const logIn = (credentials) => {
+    return requestInstance.get("/login", {
         headers: {
             "Authorization": "Basic "+ credentials
         },
     })
-    console.log("login response")
-    console.log(response)
-    return response
 }
 
-export const logOut = async () => {
-    const response = await requestInstance("/logout")
-    console.log("logout response")
-    console.log(response)
-    return response
+export const logOut = () => {
+    return requestInstance("/logout")
+}
+
+export const getDebtors = () => {
+    return requestInstance("/get_debtors")
+}
+
+export const deleteDebtor = debtorId => {
+    return requestInstance.get("/delete_debtor", {
+        params: {
+            debtorId,
+        }
+    })
+}
+
+export const addDebtor = name => {
+    return requestInstance.post("/add_debtor", {
+        name,
+    })
+}
+
+export const getDebts = ({debtorId, active, page}) => {
+    return requestInstance.get("/get_debts", {
+        params: {
+            debtorId,
+            active,
+            page,
+        },
+    })
+}
+
+export const deleteDebts = debts => {
+    return requestInstance.post("/delete_debt", {
+        debtId: debts
+    })
+}
+
+export const repayDebts = ({
+    debtIds,
+    repayDate,
+    repayDescription
+}) => {
+    return requestInstance.post("repay_debt", {
+        debtIds,
+        repayDate,
+        repayDescription
+    })
 }
