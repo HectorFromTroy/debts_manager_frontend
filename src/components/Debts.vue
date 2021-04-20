@@ -207,7 +207,7 @@ export default {
         isAdd: false,
         debtorId: this.id,
         active: this.active,
-        page: 0,
+        page: this.page++,
       })
     },
     bottomVisible() {
