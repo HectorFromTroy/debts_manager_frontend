@@ -1,5 +1,7 @@
 # depts_manager
 
+Клиентская часть приложения по управлению долгами
+
 ## Project setup
 ```
 npm install
